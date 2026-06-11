@@ -76,6 +76,13 @@
     }
 }
 
+.draft-label {
+    padding-block: 2px;
+    padding-inline: 8px;
+    background-color: var(--accent-color);
+    color: var(--background-color);
+}
+
 ul.post-meta {
     list-style: none;
     display: block;
@@ -97,10 +104,6 @@ ul.post-meta {
             display: block;
             float: inline-end;
             margin-top: -2px;
-            padding-block: 2px;
-            padding-inline: 8px;
-            background-color: var(--accent-color);
-            color: var(--background-color);
         }
     }
 }
@@ -123,7 +126,7 @@ h3,
 h4,
 h5,
 h6 {
-    .post-anchor {
+    .post-anchor:has(>span) {
         margin-inline-start: 10px;
         opacity: 0%;
         color: var(--accent-color);
@@ -217,14 +220,13 @@ h6 {
 
     &-buttons {
         display: flex;
-        align-items: center;
-        justify-content: center;
         flex-flow: row wrap;
         gap: 10px;
+        justify-content: center;
         padding-bottom: 30px;
+        text-align: center;
 
         >a {
-            text-align: center;
             text-decoration: none;
         }
     }

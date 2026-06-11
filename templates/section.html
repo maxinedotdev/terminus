@@ -6,35 +6,30 @@
 
 {%- block description -%}
     {%- if section.description %}
-    <meta name="description" content="{{ section.description | markdown(inline=true) | striptags | safe }}">
+    <meta name="description" content="{{ section.description | markdown(inline=true) | striptags }}">
     {%- elif config.description %}
-    <meta name="description" content="{{ config.description | safe }}">
+    <meta name="description" content="{{ config.description }}">
     {%- endif %}
+{%- endblock -%}
+
+{%- block translations -%}
+    {%- for translation in section.translations -%}
+    <link rel="alternate" hreflang="{{ translation.lang }}" href="{{ translation.permalink | safe }}">
+    {% endfor -%}
 {%- endblock -%}
 
 {%- block main -%}
 {%- filter indent -%}{%- filter indent -%}
+
 {%- if section.content -%}
 <header class="content {%- if section.extra.framed %} framed{%- endif -%}">
     {{ section.content | indent | safe }}
 </header>
-{% endif -%}
-
-{% for page in paginator.pages | default(value=section.pages) -%}
+{%- endif -%}
+{%- for page in paginator.pages | default(value=section.pages) -%}
 {{ post_macros::excerpt(page=page) }}
 {% endfor -%}
+{% include "partials/pagination.html" %}
 
-{%- if paginator and paginator.number_pagers > 1 %}
-<nav class="pagination">
-    <ul>
-        {%- if paginator.previous %}
-        <li><a rel="prev" href="{{ paginator.previous | safe }}" aria-label="newer posts">&lt;&nbsp;[newer posts]</a></li>
-        {%- endif %}
-        {%- if paginator.next %}
-        <li><a rel="next" href="{{ paginator.next | safe }}" aria-label="older posts">[older posts]&nbsp;&gt;</a></li>
-        {%- endif %}
-    </ul>
-</nav>
-{%- endif %}
-{% endfilter %}{% endfilter %}
+{%- endfilter -%}{%- endfilter -%}
 {%- endblock -%}
