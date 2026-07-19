@@ -1,32 +1,25 @@
-.content {
-    ul:not(.post-meta) {
+.content ul li {
+    list-style: '⦿ ';
+
+    ul li {
+        list-style: '■ ';
+
+        ul li {
+            list-style: '► ';
+        }
+    }
+
+    &:not(:last-of-type) {
+        margin-bottom: 3px;
+    }
+
+    &:has(>input[type="checkbox"]) {
         list-style: none;
 
-        li {
-            &:not(:last-of-type) {
-                margin-bottom: 3px;
-            }
-
-            &:not(:has(input))::before {
-                content: '⦿';
-                position: absolute;
-                inset-inline-start: -20px;
-                color: var(--accent-color);
-            }
-
-            &>input {
-                margin-inline-start: -4ch;
-            }
-        }
-
-        ul {
-            li:not(:has(input))::before {
-                content: '■';
-            }
-
-            ul li:not(:has(input))::before {
-                content: '►';
-            }
+        &>input[type="checkbox"] {
+            padding: 0.75em;
+            margin-block: 0 0.2em;
+            margin-inline: -2.25em 0;
         }
     }
 }
@@ -91,10 +84,7 @@ ul.post-meta {
 
     >li {
         display: inline;
-
-        &::before {
-            content: '';
-        }
+        list-style: none;
 
         &[role="separator"] {
             user-select: none;
